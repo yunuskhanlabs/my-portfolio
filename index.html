@@ -4468,82 +4468,368 @@
       </div>
     </section>
 
-    <section id="faq">
-      <h2 data-split>Questions</h2>
-      <div class="faq">
-        <details class="glass">
-          <summary>
-            <span class="q-txt">What kind of websites and digital solutions do you build?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>I build business websites, e-commerce stores, custom web applications, AI agents, and automation systems
-            tailored to your goals and requirements.</p>
-        </details>
-        <details class="glass">
-          <summary>
-            <span class="q-txt">How long does a typical project take?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>Timelines depend on the project's scope and complexity. A focused website may take around 2–4 weeks, while
-            larger applications and AI systems can take longer.</p>
-        </details>
-        <details class="glass">
-          <summary>
-            <span class="q-txt">Will my website work well on mobile and load fast?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>Yes. Every website is built responsively and optimized for performance, accessibility, clean code, and
-            technical SEO across relevant devices.</p>
-        </details>
-        <details class="glass">
-          <summary>
-            <span class="q-txt">Can you build AI agents and business automation?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>Yes. I build AI-powered systems for calls, messages, customer interactions, workflows, and repetitive
-            business tasks.</p>
-        </details>
-        <details class="glass">
-          <summary>
-            <span class="q-txt">Can you update or improve my existing website?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>Yes. I can redesign existing websites, improve performance, fix issues, add new features, and make them
-            more responsive and reliable.</p>
-        </details>
-        <details class="glass">
-          <summary>
-            <span class="q-txt">Do you provide support after launch?</span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="t-open">Answer</span>
-              <span class="t-close">Close</span>
-              <svg class="toggle-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-          </summary>
-          <p>Yes. Post-launch support can include bug fixes, updates, maintenance, security improvements, and future
-            feature development.</p>
-        </details>
+    <section id="faq" class="chat-faq-sec">
+      <h2 data-split style="text-align: center; margin-bottom: 40px;">Interactive FAQ</h2>
+      
+      <div class="chat-wrapper glass">
+        <!-- Chat Header -->
+        <div class="chat-header">
+          <div class="mac-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="chat-title">
+            <span class="status-dot"></span>
+            Yunus_AI_Agent.exe
+          </div>
+          <div class="chat-actions">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          </div>
+        </div>
+
+        <!-- Chat History -->
+        <div class="chat-history" id="chatHistory" aria-live="polite">
+          <!-- Initial Welcome Message -->
+          <div class="msg-row bot-row">
+            <div class="avatar">🤖</div>
+            <div class="msg-bubble bot-msg">
+              Hello! I'm the automated FAQ agent. Select a question below to learn more about my services, process, and technical details.
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Question Prompts -->
+        <div class="chat-input-area">
+          <div class="prompts-scroll">
+            <button class="prompt-btn" data-q="What kind of websites and digital solutions do you build?" data-a="I build business websites, e-commerce stores, custom web applications, AI agents, and automation systems tailored to your goals and requirements.">
+              What kind of websites do you build?
+            </button>
+            <button class="prompt-btn" data-q="How long does a typical project take?" data-a="Timelines depend on the project's scope and complexity. A focused website may take around 2–4 weeks, while larger applications and AI systems can take longer.">
+              How long does a project take?
+            </button>
+            <button class="prompt-btn" data-q="Will my website work well on mobile and load fast?" data-a="Yes. Every website is built responsively and optimized for performance, accessibility, clean code, and technical SEO across relevant devices.">
+              Will it be mobile friendly & fast?
+            </button>
+            <button class="prompt-btn" data-q="Can you build AI agents and business automation?" data-a="Yes. I build AI-powered systems for calls, messages, customer interactions, workflows, and repetitive business tasks.">
+              Do you build AI Agents?
+            </button>
+            <button class="prompt-btn" data-q="Can you update or improve my existing website?" data-a="Yes. I can redesign existing websites, improve performance, fix issues, add new features, and make them more responsive and reliable.">
+              Can you improve my existing site?
+            </button>
+            <button class="prompt-btn" data-q="Do you provide support after launch?" data-a="Yes. Post-launch support can include bug fixes, updates, maintenance, security improvements, and future feature development.">
+              Do you provide post-launch support?
+            </button>
+          </div>
+        </div>
       </div>
+
+      <style>
+        .chat-faq-sec {
+          max-width: 900px;
+          margin: 100px auto;
+          padding: 0 20px;
+        }
+
+        .chat-wrapper {
+          border-radius: 24px;
+          background: linear-gradient(135deg, rgba(22, 16, 60, 0.6) 0%, rgba(10, 7, 30, 0.8) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          height: 600px; /* Fixed height for app feel */
+        }
+
+        .chat-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 24px;
+          background: rgba(0, 0, 0, 0.2);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mac-dots {
+          display: flex;
+          gap: 8px;
+        }
+
+        .dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+        }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .chat-title {
+          font-family: 'Unbounded', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          background: var(--cyan, #41e8ff);
+          border-radius: 50%;
+          box-shadow: 0 0 10px var(--cyan);
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% { box-shadow: 0 0 0 0 rgba(65, 232, 255, 0.4); }
+          70% { box-shadow: 0 0 0 6px rgba(65, 232, 255, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(65, 232, 255, 0); }
+        }
+
+        .chat-actions {
+          color: #a9a3d8;
+        }
+
+        .chat-history {
+          flex: 1;
+          padding: 24px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar for chat */
+        .chat-history::-webkit-scrollbar {
+          width: 6px;
+        }
+        .chat-history::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .chat-history::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+
+        .msg-row {
+          display: flex;
+          gap: 12px;
+          max-width: 85%;
+          animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        @keyframes slideUp {
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-row {
+          align-self: flex-start;
+        }
+
+        .user-row {
+          align-self: flex-end;
+          flex-direction: row-reverse;
+        }
+
+        .avatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          flex-shrink: 0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-row .avatar {
+          background: linear-gradient(135deg, var(--cyan), var(--pink));
+        }
+
+        .msg-bubble {
+          padding: 14px 18px;
+          border-radius: 20px;
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+
+        .bot-msg {
+          background: rgba(255, 255, 255, 0.05);
+          color: #c0bae8;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-top-left-radius: 4px;
+        }
+
+        .user-msg {
+          background: linear-gradient(135deg, rgba(65, 232, 255, 0.15) 0%, rgba(255, 79, 139, 0.15) 100%);
+          color: #fff;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-top-right-radius: 4px;
+        }
+
+        .chat-input-area {
+          padding: 20px 24px;
+          background: rgba(0, 0, 0, 0.25);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .prompts-scroll {
+          display: flex;
+          gap: 12px;
+          overflow-x: auto;
+          padding-bottom: 10px;
+          /* Hide scrollbar for prompts */
+          scrollbar-width: none;
+        }
+        .prompts-scroll::-webkit-scrollbar {
+          display: none;
+        }
+
+        .prompt-btn {
+          white-space: nowrap;
+          padding: 12px 20px;
+          background: rgba(65, 232, 255, 0.08);
+          border: 1px solid rgba(65, 232, 255, 0.3);
+          border-radius: 999px;
+          color: var(--cyan);
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          flex-shrink: 0;
+        }
+
+        .prompt-btn:hover {
+          background: var(--cyan);
+          color: #000;
+          box-shadow: 0 0 15px rgba(65, 232, 255, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .typing-indicator {
+          display: flex;
+          gap: 4px;
+          padding: 18px 20px;
+          align-items: center;
+        }
+
+        .typing-indicator span {
+          width: 6px;
+          height: 6px;
+          background: #a9a3d8;
+          border-radius: 50%;
+          animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+          0%, 80%, 100% { transform: scale(0); }
+          40% { transform: scale(1); }
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 768px) {
+          .chat-faq-sec { margin: 60px auto; padding: 0 15px; }
+          .chat-wrapper { height: 500px; border-radius: 20px; }
+          .chat-header { padding: 12px 16px; }
+          .msg-bubble { font-size: 0.95rem; padding: 12px 16px; }
+          .msg-row { max-width: 90%; }
+          .chat-input-area { padding: 16px; }
+          .prompt-btn { font-size: 0.85rem; padding: 10px 16px; }
+        }
+      </style>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const chatHistory = document.getElementById('chatHistory');
+          const promptBtns = document.querySelectorAll('.prompt-btn');
+
+          // Helper to scroll to bottom
+          const scrollToBottom = () => {
+            setTimeout(() => {
+              chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 50);
+          };
+
+          // Function to add a user message
+          const addUserMessage = (text) => {
+            const html = `
+              <div class="msg-row user-row">
+                <div class="avatar">👤</div>
+                <div class="msg-bubble user-msg">${text}</div>
+              </div>
+            `;
+            chatHistory.insertAdjacentHTML('beforeend', html);
+            scrollToBottom();
+          };
+
+          // Function to add bot typing indicator
+          const addTypingIndicator = () => {
+            const id = 'typing-' + Date.now();
+            const html = `
+              <div class="msg-row bot-row" id="${id}">
+                <div class="avatar">🤖</div>
+                <div class="msg-bubble bot-msg typing-indicator">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            `;
+            chatHistory.insertAdjacentHTML('beforeend', html);
+            scrollToBottom();
+            return id;
+          };
+
+          // Function to add bot message
+          const addBotMessage = (text, typingId) => {
+            const typingEl = document.getElementById(typingId);
+            if (typingEl) typingEl.remove();
+
+            const html = `
+              <div class="msg-row bot-row">
+                <div class="avatar">🤖</div>
+                <div class="msg-bubble bot-msg">${text}</div>
+              </div>
+            `;
+            chatHistory.insertAdjacentHTML('beforeend', html);
+            scrollToBottom();
+          };
+
+          // Handle button clicks
+          promptBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const question = btn.getAttribute('data-q');
+              const answer = btn.getAttribute('data-a');
+
+              // 1. Add User Message
+              addUserMessage(question);
+
+              // 2. Hide this button so they don't click it again immediately
+              btn.style.display = 'none';
+
+              // 3. Show typing indicator
+              const typingId = addTypingIndicator();
+
+              // 4. Show answer after delay
+              setTimeout(() => {
+                addBotMessage(answer, typingId);
+              }, 1200); // 1.2s delay for realism
+            });
+          });
+        });
+      </script>
     </section>
 
     <section id="contact">
