@@ -3730,49 +3730,64 @@
       will-change: opacity, transform;
     }
 
-    .entrance-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      background: rgba(18, 11, 48, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6),
-                  0 0 28px rgba(65, 232, 255, 0.25),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      position: relative;
-      margin-bottom: 16px;
-      animation: entranceBadgePulse 1.8s ease-in-out infinite alternate;
+    .entrance-counter {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 12px;
+      text-shadow: 0 0 24px rgba(65, 232, 255, 0.35);
+      display: inline-flex;
+      align-items: baseline;
     }
 
-    .entrance-badge-monogram {
-      font-family: 'Unbounded', sans-serif;
-      font-weight: 900;
-      font-size: 1.65rem;
-      letter-spacing: -0.04em;
-      background: linear-gradient(135deg, #41e8ff 0%, #ffffff 45%, #ff4f8b 100%);
+    .entrance-counter-pct {
+      font-size: 0.5em;
+      font-weight: 700;
+      margin-left: 2px;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 8px rgba(65, 232, 255, 0.4));
+    }
+
+    .entrance-progress-track {
+      width: clamp(180px, 45vw, 260px);
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .entrance-progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      border-radius: 999px;
+      box-shadow: 0 0 12px var(--cyan);
+      transition: width 0.05s linear;
     }
 
     .entrance-brand-title {
-      display: flex;
-      align-items: center;
-      gap: 7px;
       font-family: 'Unbounded', sans-serif;
-      font-size: clamp(1.2rem, 3.5vw, 1.55rem);
+      font-size: clamp(1.1rem, 2.8vw, 1.4rem);
       font-weight: 800;
-      letter-spacing: 0.02em;
-      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      display: flex;
+      gap: 0.3em;
+      align-items: center;
     }
 
     .entrance-brand-first {
       color: #ffffff;
-      text-shadow: 0 0 14px rgba(255, 255, 255, 0.3);
     }
 
     .entrance-brand-last {
@@ -3782,46 +3797,54 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .entrance-status {
+    .entrance-info {
+      margin-top: 18px;
+      text-align: center;
+      max-width: clamp(280px, 85vw, 420px);
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      animation: entranceInfoFade 0.6s ease-out forwards;
+    }
+
+    @keyframes entranceInfoFade {
+      0% { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .entrance-info-heading {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(0.85rem, 2.2vw, 0.98rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .entrance-info-desc,
+    .entrance-info-invite {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: clamp(0.75rem, 1.8vw, 0.82rem);
+      line-height: 1.45;
+      color: var(--mute);
+      margin: 0;
+    }
+
+    .entrance-info-accent {
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: clamp(0.74rem, 1.8vw, 0.82rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-top: 4px;
+      background: linear-gradient(135deg, var(--cyan) 0%, #d8b4fe 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 5px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: rgba(255, 255, 255, 0.85);
-      font-family: 'Manrope', sans-serif;
-    }
-
-    .entrance-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #3ddc97;
-      box-shadow: 0 0 8px #3ddc97;
-      position: relative;
-    }
-
-    .entrance-status-dot::after {
-      content: "";
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: rgba(61, 220, 151, 0.5);
-      animation: navPulse 1.8s infinite;
-    }
-
-    @keyframes entranceBadgePulse {
-      0% {
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(65, 232, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      }
-      100% {
-        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 32px rgba(255, 79, 139, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-      }
+      gap: 3px;
     }
 
     #entrance.is-opening {
@@ -4358,16 +4381,19 @@
     <div class="entrance-shutter entrance-shutter-top"></div>
     <div class="entrance-shutter entrance-shutter-bottom"></div>
     <div class="entrance-content">
-      <div class="entrance-badge">
-        <span class="entrance-badge-monogram">YW</span>
+      <div class="entrance-counter" id="entrance-counter">0<span class="entrance-counter-pct">%</span></div>
+      <div class="entrance-progress-track">
+        <div class="entrance-progress-fill" id="entrance-progress-fill"></div>
       </div>
       <div class="entrance-brand-title">
         <span class="entrance-brand-first">Yunus</span>
         <span class="entrance-brand-last">Web</span>
       </div>
-      <div class="entrance-status">
-        <span class="entrance-status-dot"></span>
-        <span>Available for projects</span>
+      <div class="entrance-info">
+        <h2 class="entrance-info-heading">Explore the Projects</h2>
+        <p class="entrance-info-desc">These projects are demos showcasing my work and ideas.</p>
+        <p class="entrance-info-invite">Like what you see? Let’s build something for you.</p>
+        <div class="entrance-info-accent">Your project could be next ↗</div>
       </div>
     </div>
   </div>
@@ -4380,15 +4406,74 @@
         return;
       }
       
+      window.__entranceActive = true;
       document.body.style.overflow = 'hidden';
       
+      var counter = document.getElementById('entrance-counter');
+      var progress = document.getElementById('entrance-progress-fill');
+      var currentVal = 0;
+      var targetVal = 100;
+      var isLoaded = document.readyState === 'complete';
+      var animFrame = null;
+      var lastTick = 0;
+      var isFinished = false;
+
+      if (!isLoaded) {
+        window.addEventListener('load', function () {
+          isLoaded = true;
+        }, { once: true });
+      }
+
+      // Fallback in case load event already passed or takes too long
       setTimeout(function () {
-        el.classList.add('is-opening');
-        setTimeout(function () {
-          el.remove();
-          document.body.style.overflow = '';
-        }, 760);
-      }, 340);
+        isLoaded = true;
+      }, 2500);
+
+      function updateDisplay(val) {
+        if (counter) {
+          counter.innerHTML = val + '<span class="entrance-counter-pct">%</span>';
+        }
+        if (progress) {
+          progress.style.width = val + '%';
+        }
+      }
+
+      function step(timestamp) {
+        if (!lastTick) lastTick = timestamp;
+        var elapsed = timestamp - lastTick;
+        
+        // Target around 1.8 - 2.2 seconds total duration with smooth sequential steps
+        var tickInterval = isLoaded ? 14 : 22;
+        
+        if (elapsed >= tickInterval) {
+          lastTick = timestamp;
+          
+          if (currentVal < targetVal) {
+            // Guarantee every single integer counts sequentially without jumping
+            currentVal++;
+            updateDisplay(currentVal);
+          }
+        }
+        
+        if (currentVal < 100) {
+          animFrame = requestAnimationFrame(step);
+        } else if (!isFinished) {
+          isFinished = true;
+          updateDisplay(100);
+          
+          // Brief pause at 100% to let the user see completion before cinematic reveal
+          setTimeout(function () {
+            window.__entranceActive = false;
+            el.classList.add('is-opening');
+            setTimeout(function () {
+              el.remove();
+              document.body.style.overflow = '';
+            }, 760);
+          }, 180);
+        }
+      }
+      
+      animFrame = requestAnimationFrame(step);
     })();
   </script>
   <canvas id="gl" aria-hidden="true"></canvas>
@@ -6162,10 +6247,10 @@
       const dkOn = document.documentElement.classList.contains('deck-on');
       const act = (now - lastIn < 1200) || Math.abs(scT - scS) > .002, gap0 = tier === 2 ? (act ? 33 : 50) : (act ? 15 : 33);
       const gap = dkOn ? Math.max(gap0, 42) : gap0;
-      if (r3 && !__deckOn && now - lr >= gap - 1) { lr = now; r3(now, dt) }
+      if (r3 && !__deckOn && !window.__entranceActive && now - lr >= gap - 1) { lr = now; r3(now, dt) }
       requestAnimationFrame(tick)
     }
-    if (ani) requestAnimationFrame(tick); else if (r3) r3(0);
+    if (ani) requestAnimationFrame(tick); else if (r3 && !window.__entranceActive) r3(0);
   </script>
   <script>
     /* Hero-first navigation: opens every section as a 3D panel above the hero */
@@ -6180,13 +6265,18 @@
       let fitTimer = 0, glT = 0, current = null, opener = null, closeTimer = 0, flipTimer = 0, flipping = false, pendingId = null, fitRo = null;
       const isOpen = () => root.classList.contains('deck-on') && !deck.classList.contains('closing');
       const kick = (b, d) => { try { if (b != null) burst = b; if (d != null) deckT = d; } catch (_) { } };
-      const fireResize = () => requestAnimationFrame(() => requestAnimationFrame(() => dispatchEvent(new Event('resize'))));
+      let rzTimer = 0;
+      const fireResize = () => {
+        clearTimeout(rzTimer);
+        rzTimer = setTimeout(() => { dispatchEvent(new Event('resize')); }, 600);
+      };
 
       function shock(x, y) {
         if (reduce.matches) return;
+        document.querySelectorAll('.shock').forEach(el => el.remove());
         ['', 'p'].forEach(c => {
           const s = document.createElement('div'); s.className = 'shock ' + c; s.setAttribute('aria-hidden', 'true');
-          s.style.left = x + 'px'; s.style.top = y + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 1400);
+          s.style.left = x + 'px'; s.style.top = y + 'px'; document.body.appendChild(s); setTimeout(() => s.remove(), 1000);
         });
       }
       function replay(sec) {
@@ -6196,21 +6286,22 @@
       }
       /* mobile: shrink the open section (text + images together) so it fits the panel without scrolling */
       function fit() {
-        ids.forEach(k => { if (secs[k] && secs[k].style.zoom) secs[k].style.zoom = ''; });
-        if (!current) return;
-        const sec = secs[current], a = scroller.clientHeight;
-        let h = sec.offsetHeight;   // layout height (not affected by the opening 3D animation)
-        if (!h || !a || h <= a) return;
-        // desktop + mobile: scale the open section so it sits fully inside the frame (no scrolling)
-        let z = Math.max(.5, a / h);
-        for (let i = 0; i < 4; i++) {
-          sec.style.zoom = z.toFixed(3);
-          const hv = sec.offsetHeight * z;
-          if (!hv) break;
-          if (hv > a + 1) z = Math.max(.5, z * a / hv);
-          else if (hv < a * .94 && z < .995) z = Math.min(1, z * a / hv);
-          else break;
+        if (!current) {
+          ids.forEach(k => { if (secs[k] && secs[k].style.zoom) secs[k].style.zoom = ''; });
+          return;
         }
+        const sec = secs[current], a = scroller.clientHeight;
+        if (!sec || !a) return;
+        const curZ = parseFloat(sec.style.zoom) || 1;
+        const h = curZ === 1 ? sec.offsetHeight : (sec.style.zoom = '', sec.offsetHeight);
+        if (!h || h <= a) {
+          if (sec.style.zoom) sec.style.zoom = '';
+          return;
+        }
+        // desktop + mobile: scale the open section so it sits fully inside the frame (no scrolling)
+        const z = Math.max(.5, Math.min(1, (a - 2) / h));
+        const zStr = z < 0.995 ? z.toFixed(3) : '';
+        if (sec.style.zoom !== zStr) sec.style.zoom = zStr;
       }
       function show(id) {
         ids.forEach(k => secs[k] && secs[k].classList.toggle('is-open', k === id));
@@ -6218,7 +6309,7 @@
         const t = tabs[ids.indexOf(id)];
         if (t) tabsBox.scrollTo({ left: t.offsetLeft - (tabsBox.clientWidth - t.offsetWidth) / 2, behavior: reduce.matches ? 'auto' : 'smooth' });
         scroller.scrollTop = 0; current = id; slab.setAttribute('aria-label', t ? t.textContent.trim() : 'Section');
-        replay(secs[id]); fireResize(); fit();
+        replay(secs[id]); fit();
         if (fitRo) fitRo.disconnect();
         fitRo = new ResizeObserver(() => { if (current === id) fit(); });
         if (secs[id]) {
@@ -6234,12 +6325,12 @@
         if (isOpen()) { switchTo(id); return; }
         clearTimeout(closeTimer); opener = src || document.activeElement;
         const cx = x != null ? x : innerWidth / 2, cy = y != null ? y : innerHeight * .45;
-        shock(cx, cy); if (typeof spawn === 'function') spawn(cx, cy, 46, 8);
+        shock(cx, cy); if (typeof spawn === 'function') spawn(cx, cy, 16, 6);
         kick(1, 1);
         deck.classList.remove('closing', 'opening'); slab.classList.remove('flip-out', 'flip-in');
         root.classList.add('deck-on'); deck.setAttribute('aria-hidden', 'false');
         inertEls.forEach(e => { e.inert = true; });
-        void deck.offsetWidth; deck.classList.add('opening');
+        deck.classList.add('opening');
         show(id); scroller.focus({ preventScroll: true });
         clearTimeout(glT); glT = setTimeout(() => { window.__glLow = true; }, 1100);
       }
