@@ -973,6 +973,82 @@
     .proj-cta-pill {
       color: var(--cyan);
       font-weight: 700;
+      text-decoration: none;
+    }
+
+    a.proj-cta-pill {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      border-radius: 999px;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(65, 232, 255, 0.28) 0%, rgba(255, 79, 139, 0.3) 100%);
+      border: 1px solid rgba(65, 232, 255, 0.75);
+      box-shadow: 0 0 14px rgba(65, 232, 255, 0.4), 0 0 7px rgba(255, 79, 139, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      animation: projCta3DPulse 2.6s ease-in-out infinite;
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    }
+
+    a.proj-cta-pill::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+      transform: translateX(-200%) skewX(-25deg);
+      animation: projBtnShimmerX 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    a.proj-cta-pill .arr {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--cyan);
+      transition: transform 0.25s ease, color 0.25s ease;
+      animation: projArrBounce 1.8s ease-in-out infinite;
+    }
+
+    a.proj-cta-pill:hover {
+      background: linear-gradient(135deg, rgba(65, 232, 255, 0.45) 0%, rgba(255, 79, 139, 0.45) 100%);
+      border-color: #ffffff;
+      color: #ffffff;
+      box-shadow: 0 0 22px rgba(65, 232, 255, 0.75), 0 0 12px rgba(255, 79, 139, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    a.proj-cta-pill:hover .arr {
+      color: #ffffff;
+      transform: translate(2px, -2px);
+      animation: none;
+    }
+
+    a.proj-cta-pill:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    @keyframes projCta3DPulse {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(65, 232, 255, 0.35), 0 0 6px rgba(255, 79, 139, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        border-color: rgba(65, 232, 255, 0.7);
+        transform: translateY(0);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(65, 232, 255, 0.7), 0 0 10px rgba(255, 79, 139, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        border-color: rgba(255, 255, 255, 0.95);
+        transform: translateY(-1.5px);
+      }
     }
 
     .proj-text {
@@ -1277,6 +1353,11 @@
 
       .proj-cta-pill {
         font-size: 0.7rem;
+      }
+
+      a.proj-cta-pill {
+        font-size: 0.68rem;
+        padding: 4px 10px;
       }
 
       .proj-text {
@@ -4902,23 +4983,23 @@
       <p class="lead">A curated showcase of high-performance websites, 3D commerce, and digital brand experiences.</p>
       <div class="proj-wrap">
         <div class="proj-flow" id="projflow">
-          <!-- Slide 01: Nova Store -->
+          <!-- Slide 01: Online Store Demo -->
           <div class="proj-s" id="proj-slide-0" role="tabpanel" aria-labelledby="proj-tab-0" style="--g:linear-gradient(135deg,#ff4f8b,#7a3bff)">
             <span class="proj-n">01</span>
             <span class="proj-pill">E-Commerce • 3D</span>
             <div class="proj-card-inner">
               <div class="proj-badge-row">
                 <span class="proj-mini-badge">Interactive WebGL</span>
-                <span class="proj-price">Production Ready</span>
+                <span class="proj-price">Live Demo</span>
               </div>
               <div class="proj-visual-box">
                 <div class="proj-icon-orb">🛍️</div>
-                <b>Nova Store</b>
-                <small>3D E-Commerce Platform</small>
+                <b>Online Store Demo</b>
+                <small>3D E-Commerce Storefront</small>
               </div>
               <div class="proj-card-foot">
-                <span>Custom Cart & 3D Viewer</span>
-                <span class="proj-cta-pill">Explore Project ↗</span>
+                <span>Custom Cart & 3D Visuals</span>
+                <a class="proj-cta-pill" href="https://project.yunusweb.workers.dev" target="_blank" rel="noopener noreferrer">View Live Demo <span class="arr">↗</span></a>
               </div>
             </div>
           </div>
@@ -4942,23 +5023,23 @@
               </div>
             </div>
           </div>
-          <!-- Slide 03: Orbit Agency -->
+          <!-- Slide 03: Affiliate Store Demo -->
           <div class="proj-s" id="proj-slide-2" role="tabpanel" aria-labelledby="proj-tab-2" style="--g:linear-gradient(135deg,#ffc857,#ff7a45)">
             <span class="proj-n">03</span>
-            <span class="proj-pill">Creative Studio</span>
+            <span class="proj-pill">Affiliate Commerce</span>
             <div class="proj-card-inner">
               <div class="proj-badge-row">
-                <span class="proj-mini-badge">WebGL & GSAP</span>
-                <span class="proj-price">Scroll Motion</span>
+                <span class="proj-mini-badge">Next.js & React</span>
+                <span class="proj-price">Live Demo</span>
               </div>
               <div class="proj-visual-box">
-                <div class="proj-icon-orb">🪐</div>
-                <b>Orbit Agency</b>
-                <small>Interactive Brand Experience</small>
+                <div class="proj-icon-orb">🏷️</div>
+                <b>Affiliate Store Demo</b>
+                <small>Curated Collections & Cards</small>
               </div>
               <div class="proj-card-foot">
-                <span>Cinematic Depth & Motion</span>
-                <span class="proj-cta-pill">Explore Project ↗</span>
+                <span>Cinematic Shopping Grid</span>
+                <a class="proj-cta-pill" href="https://e-commerce-demo.yunusweb.workers.dev" target="_blank" rel="noopener noreferrer">View Live Demo <span class="arr">↗</span></a>
               </div>
             </div>
           </div>
@@ -4992,7 +5073,7 @@
             <span class="proj-tag" id="proj-tg"></span>
           </div>
           <div class="proj-action">
-            <a class="proj-link" href="#contact" id="proj-btn">Inquire About Project <span class="arr">↗</span></a>
+            <a class="proj-link" href="https://project.yunusweb.workers.dev" id="proj-btn" target="_blank" rel="noopener noreferrer">View Live Demo <span class="arr">↗</span></a>
           </div>
         </div>
       </div>
@@ -5000,9 +5081,9 @@
       <div class="proj-nav">
         <button class="parrow" id="projprev" type="button" aria-label="Previous project">&#8249;</button>
         <div class="proj-tabs" id="projtabs" role="tablist" aria-label="Selected projects">
-          <button class="proj-tab" id="proj-tab-0" role="tab" aria-selected="true" aria-controls="proj-slide-0" tabindex="0" type="button"><span>01</span><em>Nova Store</em><i class="proj-fill"></i></button>
+          <button class="proj-tab" id="proj-tab-0" role="tab" aria-selected="true" aria-controls="proj-slide-0" tabindex="0" type="button"><span>01</span><em>Online Store Demo</em><i class="proj-fill"></i></button>
           <button class="proj-tab" id="proj-tab-1" role="tab" aria-selected="false" aria-controls="proj-slide-1" tabindex="-1" type="button"><span>02</span><em>Pulse Fitness</em><i class="proj-fill"></i></button>
-          <button class="proj-tab" id="proj-tab-2" role="tab" aria-selected="false" aria-controls="proj-slide-2" tabindex="-1" type="button"><span>03</span><em>Orbit Agency</em><i class="proj-fill"></i></button>
+          <button class="proj-tab" id="proj-tab-2" role="tab" aria-selected="false" aria-controls="proj-slide-2" tabindex="-1" type="button"><span>03</span><em>Affiliate Store Demo</em><i class="proj-fill"></i></button>
           <button class="proj-tab" id="proj-tab-3" role="tab" aria-selected="false" aria-controls="proj-slide-3" tabindex="-1" type="button"><span>04</span><em>Lumen Studio</em><i class="proj-fill"></i></button>
         </div>
         <button class="parrow" id="projnext" type="button" aria-label="Next project">&#8250;</button>
@@ -6337,11 +6418,11 @@
     (function () {
       const items = [
         [
-          'Nova Store — 3D E-Commerce',
-          'Modern online storefront with an interactive 3D product visualizer, custom cart drawer, and frictionless one-tap checkout.',
-          ['Three.js', 'WebGL', 'JavaScript', 'Tailwind CSS'],
-          'Inquire About Project',
-          '#contact'
+          'Online Store Demo',
+          'Interactive 3D e-commerce storefront featuring immersive product visuals, dynamic shopping interactions, a custom cart, and a demo checkout experience.',
+          ['Three.js', 'WebGL', 'JavaScript', 'E-commerce'],
+          'View Live Demo',
+          'https://project.yunusweb.workers.dev'
         ],
         [
           'Pulse Fitness — SaaS Platform',
@@ -6351,11 +6432,11 @@
           '#contact'
         ],
         [
-          'Orbit Agency — Creative Studio',
-          'Cinematic brand website built around smooth scroll storytelling, interactive WebGL depth, sound design, and micro-interactions.',
-          ['Three.js', 'GSAP', 'WebGL', 'GLSL Shaders'],
-          'Inquire About Project',
-          '#contact'
+          'Affiliate Store Demo',
+          'A modern affiliate storefront featuring curated product collections, interactive product cards, responsive layouts, and a cinematic shopping experience.',
+          ['Next.js', 'React', 'Tailwind CSS', 'Affiliate Commerce'],
+          'View Live Demo',
+          'https://e-commerce-demo.yunusweb.workers.dev'
         ],
         [
           'Lumen Studio — Luxury Portfolio',
@@ -6515,6 +6596,14 @@
       fl.addEventListener('pointerup', endDrag);
       fl.addEventListener('pointercancel', endDrag);
 
+      // Prevent link clicks if user was dragging or swiping cards
+      fl.addEventListener('click', e => {
+        if (isDragging || hasSwiped) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+
       // Slide click: ignore if drag gesture just concluded; toggle pause on active slide
       slides.forEach((s, i) => s.addEventListener('click', e => {
         if (isDragging || hasSwiped) {
@@ -6522,6 +6611,7 @@
           e.stopPropagation();
           return;
         }
+        if (e.target.closest('.proj-cta-pill')) return;
         if (i !== cur) {
           setTapped(false);
           go(i);
