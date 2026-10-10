@@ -213,126 +213,261 @@
       color: #fff
     }
 
-    /* Hero Theme Switcher (Top Center) */
-    .hero-theme-switcher {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+    /* Hero Theme Switcher */
+    .hero-theme-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .hero-theme-control {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 6px;
-      background: rgba(18, 13, 56, 0.48);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    /* Desktop: Fixed at top-center of the website, aligned with top bar */
+    @media (min-width: 769px) {
+      .hero-theme-wrap {
+        position: fixed;
+        top: calc(env(safe-area-inset-top, 0px) + 21px);
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+      .theme-dropdown {
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+      }
+      .hero-theme-control.is-open .theme-dropdown,
+      .hero-theme-control:hover .theme-dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Mobile & Tablet: Above .marq at bottom of hero section */
+    @media (max-width: 768px) {
+      .hero-theme-wrap {
+        position: relative;
+        z-index: 30;
+        margin-top: 22px;
+        margin-bottom: 12px;
+      }
+      .theme-dropdown {
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%) translateY(6px);
+      }
+      .hero-theme-control.is-open .theme-dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* Trigger Button: Single Compact Glass Capsule */
+    .theme-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 30px;
+      padding: 0 10px 0 7px;
+      background: rgba(18, 13, 56, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 999px;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      z-index: 6;
-      user-select: none;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .hero-theme-switcher:hover {
-      border-color: rgba(255, 255, 255, 0.28);
-      background: rgba(26, 20, 76, 0.65);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    .theme-btn {
-      position: relative;
-      width: 26px;
-      height: 26px;
-      border: none;
-      background: transparent;
-      padding: 0;
-      border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.92);
+      font: 700 0.76rem/1 Unbounded, system-ui, sans-serif;
+      letter-spacing: 0.03em;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       outline: none;
-      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .theme-btn:focus-visible {
+    .theme-trigger:hover,
+    .hero-theme-control.is-open .theme-trigger {
+      background: rgba(26, 20, 76, 0.82);
+      border-color: rgba(255, 255, 255, 0.32);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 12px rgba(65, 232, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .theme-trigger:focus-visible {
       outline: 2px solid var(--cyan);
       outline-offset: 2px;
     }
 
-    .theme-btn:hover {
-      transform: scale(1.15);
+    .theme-trigger-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .theme-trigger-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .theme-trigger-arrow {
+      font-size: 0.68rem;
+      color: var(--mute);
+      transition: transform 0.25s ease, color 0.25s ease;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .hero-theme-control.is-open .theme-trigger-arrow {
+      transform: rotate(180deg);
+      color: var(--cyan);
+    }
+
+    @media (min-width: 769px) {
+      .hero-theme-control:hover .theme-trigger-arrow {
+        transform: rotate(180deg);
+        color: var(--cyan);
+      }
+    }
+
+    /* Dropdown Options Container */
+    .theme-dropdown {
+      position: absolute;
+      min-width: 175px;
+      padding: 6px;
+      background: rgba(14, 11, 44, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(65, 232, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+      z-index: 120;
+    }
+
+    /* Theme Option Button inside Dropdown */
+    .theme-opt {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 10px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--mute);
+      font: 600 0.78rem/1.2 Manrope, system-ui, sans-serif;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      outline: none;
+      transition: all 0.18s ease;
+    }
+
+    .theme-opt:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .theme-opt:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: -1px;
+    }
+
+    .theme-opt.active {
+      background: rgba(65, 232, 255, 0.14);
+      color: #ffffff;
+      font-weight: 700;
+      border-color: rgba(65, 232, 255, 0.35);
+      box-shadow: 0 0 12px rgba(65, 232, 255, 0.15);
+    }
+
+    .theme-opt-name {
+      flex: 1;
+    }
+
+    .theme-opt-check {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .theme-opt.active .theme-opt-check {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .theme-dot {
-      width: 13px;
-      height: 13px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       display: block;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
       position: relative;
+      flex-shrink: 0;
     }
 
     .dot-cyan {
-      background: conic-gradient(from 180deg, #41e8ff, #10ffa0, #ff4f8b, #41e8ff);
-      box-shadow: 0 0 8px rgba(65, 232, 255, 0.6);
+      background: conic-gradient(from 180deg, #ffffff, #c0c7d1, #f0f4fa, #94a3b8, #ffffff);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
     }
 
     .dot-amber {
       background: conic-gradient(from 180deg, #ffc857, #ff9f1c, #ff0055, #ffc857);
-      box-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+      box-shadow: 0 0 8px rgba(255, 183, 3, 0.65);
     }
 
-    .dot-violet {
-      background: conic-gradient(from 180deg, #c084fc, #3b82f6, #06b6d4, #c084fc);
-      box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+    .dot-crimson {
+      background: conic-gradient(from 180deg, #ff0055, #ff2d87, #d90429, #ffffff, #ff0055);
+      box-shadow: 0 0 8px rgba(255, 0, 85, 0.75);
     }
 
-    .theme-btn.active .theme-dot {
-      transform: scale(1.18);
-    }
-
-    .theme-btn.active::after {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-      animation: themeActivePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes themeActivePop {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      .hero-theme-switcher {
-        gap: 3px;
-        padding: 3px 4px;
-      }
-      .theme-btn {
-        width: 22px;
-        height: 22px;
-      }
-      .theme-dot {
-        width: 10px;
-        height: 10px;
-      }
+    .dot-original {
+      background: conic-gradient(from 180deg, #41e8ff, #ff4f8b, #ffc857, #bfb4ff, #41e8ff);
+      box-shadow: 0 0 8px rgba(191, 180, 255, 0.7);
     }
 
     /* Hero Background Particles */
     .hero-particles {
       position: absolute;
-      inset: 0;
-      width: 100%;
+      top: 0;
+      left: 50%;
+      width: 100vw;
       height: 100%;
+      margin-left: -50vw;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
       overflow: hidden;
+    }
+
+    #hero > .stage,
+    #hero > .hero-menus {
+      position: relative;
+      z-index: 2;
     }
 
     section {
@@ -344,16 +479,20 @@
 
     /* hero */
     #hero {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      perspective: 1000px;
       min-height: auto;
       padding-top: 52px;
       padding-bottom: 0px;
     }
+    @media (max-width: 768px) {
+      #hero { perspective: 1000px; }
+    }
 
     .stage {
+      perspective: 1000px;
       transform-style: preserve-3d;
       will-change: transform
     }
@@ -4612,17 +4751,6 @@
         <span class="nav-dot"></span>
       </span>
     </a>
-    <div class="hero-theme-switcher" id="heroThemeSwitcher" role="group" aria-label="3D & Particles Theme Switcher">
-      <button class="theme-btn active" data-theme="0" type="button" aria-label="Theme 1: Cyber Aurora" title="Theme 1: Cyber Aurora" aria-pressed="true">
-        <span class="theme-dot dot-cyan"></span>
-      </button>
-      <button class="theme-btn" data-theme="1" type="button" aria-label="Theme 2: Solar Flare" title="Theme 2: Solar Flare" aria-pressed="false">
-        <span class="theme-dot dot-amber"></span>
-      </button>
-      <button class="theme-btn" data-theme="2" type="button" aria-label="Theme 3: Cosmic Nebula" title="Theme 3: Cosmic Nebula" aria-pressed="false">
-        <span class="theme-dot dot-violet"></span>
-      </button>
-    </div>
     <a class="hire" href="#contact">Hire me</a>
   </header>
   <main>
@@ -4660,6 +4788,37 @@
         <a href="#faq" data-open="faq" style="--n:6"><b aria-hidden="true">💬</b><span>FAQ</span><em aria-hidden="true">07</em></a>
         <a href="#contact" data-open="contact" style="--n:7"><b aria-hidden="true">📩</b><span>Contact</span><em aria-hidden="true">08</em></a>
       </nav>
+    </div>
+    <div class="hero-theme-wrap" id="heroThemeWrap">
+      <div class="hero-theme-control" id="heroThemeControl">
+        <button class="theme-trigger" id="themeTrigger" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Theme: Classic Holographic (Active). Click or hover to switch theme." title="Theme: Classic Holographic">
+          <span class="theme-trigger-dot dot-original" id="themeTriggerDot"></span>
+          <span class="theme-trigger-label" id="themeTriggerLabel">Classic Holographic</span>
+          <span class="theme-trigger-arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="theme-dropdown" id="themeDropdown" role="menu" aria-label="Choose 3D & Particle color theme">
+          <button class="theme-opt active" data-theme="0" type="button" role="menuitem" aria-label="Theme 1: Classic Holographic" aria-checked="true">
+            <span class="theme-dot dot-original"></span>
+            <span class="theme-opt-name">Classic Holographic</span>
+            <span class="theme-opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="theme-opt" data-theme="1" type="button" role="menuitem" aria-label="Theme 2: Cyber Aurora" aria-checked="false">
+            <span class="theme-dot dot-cyan"></span>
+            <span class="theme-opt-name">Cyber Aurora</span>
+            <span class="theme-opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="theme-opt" data-theme="2" type="button" role="menuitem" aria-label="Theme 3: Solar Flare" aria-checked="false">
+            <span class="theme-dot dot-amber"></span>
+            <span class="theme-opt-name">Solar Flare</span>
+            <span class="theme-opt-check" aria-hidden="true">✓</span>
+          </button>
+          <button class="theme-opt" data-theme="3" type="button" role="menuitem" aria-label="Theme 4: Crimson Pulse" aria-checked="false">
+            <span class="theme-dot dot-crimson"></span>
+            <span class="theme-opt-name">Crimson Pulse</span>
+            <span class="theme-opt-check" aria-hidden="true">✓</span>
+          </button>
+        </div>
+      </div>
     </div>
     </section>
 
@@ -5509,7 +5668,7 @@
     const meas = () => { winH = innerHeight; maxS = Math.max(1, document.documentElement.scrollHeight - winH); scrollDirty = true; };
     meas(); addEventListener('resize', meas, { passive: true }); addEventListener('load', meas, { passive: true });
     scT = curScrollY / winH; scS = scT;
-    addEventListener('scroll', () => { curScrollY = scrollY; scrollDirty = true; lastIn = performance.now(); }, { passive: true });
+    addEventListener('scroll', () => { curScrollY = scrollY; scrollDirty = true; lastIn = performance.now(); if (window.__resumeHeroParticles) window.__resumeHeroParticles(); }, { passive: true });
     addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; px = e.clientX; py = e.clientY }, { passive: true });
     if (fine && ani) document.querySelectorAll('.tilt').forEach(c => {
       c.addEventListener('pointerenter', () => { hot = c; c._r = c.getBoundingClientRect() });
@@ -5523,60 +5682,71 @@
       location.href = 'mailto:hello@yunusweb.com?subject=' + encodeURIComponent('Project enquiry from ' + n) + '&body=' + encodeURIComponent(m + '\n\n' + n + ' (' + e + ')');
     };
     new IntersectionObserver(([e]) => document.querySelector('h1').classList.toggle('off', !e.isIntersecting)).observe(document.getElementById('hero'));
-    // 3D scene: shader-based (no lights), dynamic two-way adaptive quality + 3 Color Themes
+    // 3D scene: shader-based (no lights), dynamic two-way adaptive quality + 4 Color Themes
     let curHeroTheme = 0;
     const PARTICLE_THEMES = [
-      // Theme 0: Cyan, Turquoise, Neon Green, Soft Pink/Purple (Reference inspired)
+      // Theme 0: TRUE Original Website Theme (Cyan, Turquoise, Neon Green, Mint, Soft Pink, Lavender, Gold, Muted Indigo, White)
       [
-        { r: 65, g: 232, b: 255 },
-        { r: 0, g: 240, b: 255 },
-        { r: 16, g: 255, b: 160 },
-        { r: 52, g: 211, b: 153 },
-        { r: 255, g: 79, b: 139 },
-        { r: 192, g: 132, b: 252 }
+        { r: 65, g: 232, b: 255 },  // Cyan (#41e8ff)
+        { r: 0, g: 245, b: 212 },   // Turquoise (#00f5d4)
+        { r: 16, g: 255, b: 160 },  // Neon Green (#10ffa0)
+        { r: 52, g: 211, b: 153 },  // Mint (#34d399)
+        { r: 255, g: 79, b: 139 },  // Soft Pink (#ff4f8b)
+        { r: 191, g: 180, b: 255 }, // Lavender (#bfb4ff)
+        { r: 255, g: 200, b: 87 },  // Gold (#ffc857)
+        { r: 169, g: 163, b: 216 }, // Muted Indigo (#a9a3d8)
+        { r: 255, g: 255, b: 255 }  // Pure White
       ],
-      // Theme 1: Gold, Amber, Tangerine, Sunset Coral, Neon Crimson
+      // Theme 1: Cyber Aurora (Clean White, Ice White, Soft Silver, Platinum, Cool Slate)
+      [
+        { r: 255, g: 255, b: 255 }, // Pure White (#ffffff)
+        { r: 240, g: 244, b: 250 }, // Ice White (#f0f4fa)
+        { r: 192, g: 199, b: 209 }, // Soft Silver (#c0c7d1)
+        { r: 226, g: 232, b: 240 }, // Platinum Silver (#e2e8f0)
+        { r: 168, g: 178, b: 192 }, // Subtle Cool Slate (#a8b2c0)
+        { r: 255, g: 255, b: 255 }  // Brilliant White Core
+      ],
+      // Theme 2: Solar Flare (Warm Gold, Amber, Tangerine, Sunset Coral, Ruby Red, Yellow)
       [
         { r: 255, g: 200, b: 87 },
         { r: 255, g: 183, b: 3 },
-        { r: 255, g: 159, b: 28 },
-        { r: 255, g: 0, b: 85 },
+        { r: 255, g: 123, b: 0 },
         { r: 255, g: 107, b: 107 },
+        { r: 255, g: 0, b: 85 },
         { r: 253, g: 224, b: 71 }
       ],
-      // Theme 2: Electric Violet, Lavender, Royal Blue, Ice Cyan, Magenta Glow
+      // Theme 3: Crimson Pulse (Crimson Red, Hot Pink, Ruby Red, Carmine, Soft Rose, Subtle White Glow)
       [
-        { r: 168, g: 85, b: 247 },
-        { r: 192, g: 132, b: 252 },
-        { r: 59, g: 130, b: 246 },
-        { r: 6, g: 182, b: 212 },
-        { r: 129, g: 140, b: 248 },
-        { r: 236, g: 72, b: 153 }
+        { r: 255, g: 0, b: 85 },
+        { r: 255, g: 45, b: 135 },
+        { r: 217, g: 4, b: 41 },
+        { r: 255, g: 23, b: 68 },
+        { r: 255, g: 101, b: 132 },
+        { r: 255, g: 255, b: 255 }
       ]
     ];
 
-    // Initialize Hero Background Particles
+    // Initialize Hero Background Particles (2D Canvas Layer)
     const initHeroParticles = () => {
       const cvs = document.getElementById('hero-particles');
       if (!cvs) return;
       const ctx = cvs.getContext('2d');
       if (!ctx) return;
       const heroEl = document.getElementById('hero');
-      let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let w = window.innerWidth, h = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
       let pList = [];
-      const P_COUNT = 52;
+      const P_COUNT = (window.innerWidth > 800) ? 190 : 110;
 
       const resizeP = () => {
-        if (!heroEl) return;
-        const rect = heroEl.getBoundingClientRect();
-        w = rect.width || window.innerWidth;
-        h = rect.height || window.innerHeight;
+        w = window.innerWidth;
+        h = Math.max(heroEl ? heroEl.offsetHeight : 0, window.innerHeight);
         cvs.width = Math.round(w * dpr);
         cvs.height = Math.round(h * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
       resizeP();
       window.addEventListener('resize', resizeP, { passive: true });
+      window.addEventListener('load', resizeP, { passive: true });
 
       const getThemeTargetCol = (themeIdx, colIdx) => {
         const pal = PARTICLE_THEMES[themeIdx] || PARTICLE_THEMES[0];
@@ -5586,19 +5756,24 @@
       for (let i = 0; i < P_COUNT; i++) {
         const colIdx = i % PARTICLE_THEMES[0].length;
         const col = getThemeTargetCol(0, colIdx);
+        // Approx 1-3px (radius 0.55 to 1.45), ~12% up to 4px (radius 1.6 to 2.0)
+        const isLarge = Math.random() < 0.12;
+        const r = isLarge ? (Math.random() * 0.45 + 1.55) : (Math.random() * 0.85 + 0.55);
         pList.push({
-          x: Math.random() * (w || window.innerWidth),
-          y: Math.random() * (h || window.innerHeight),
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: -Math.random() * 0.45 - 0.15,
-          r: Math.random() * 1.8 + 0.9,
-          baseA: Math.random() * 0.45 + 0.3,
-          pulseSp: Math.random() * 0.02 + 0.012,
-          pulsePh: Math.random() * 6.28,
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: -Math.random() * 0.38 - 0.12,
+          r: r,
+          baseA: Math.random() * 0.42 + 0.48,
+          twinkleSp: Math.random() * 2.2 + 1.1,
+          twinklePh: Math.random() * 6.28,
+          swaySp: Math.random() * 0.7 + 0.3,
+          swayPh: Math.random() * 6.28,
+          swayAmp: Math.random() * 0.32 + 0.1,
           colIdx: colIdx,
           cr: col.r, cg: col.g, cb: col.b,
-          tr: col.r, tg: col.g, tb: col.b,
-          floatOffset: Math.random() * 100
+          tr: col.r, tg: col.g, tb: col.b
         });
       }
 
@@ -5611,84 +5786,159 @@
         });
       };
 
-      let heroVisible = true;
-      if (window.IntersectionObserver && heroEl) {
-        new IntersectionObserver(([e]) => {
-          heroVisible = e.isIntersecting;
-        }, { threshold: 0.05 }).observe(heroEl);
-      }
-
       let lastPTime = performance.now();
+      let pRunning = false;
       const drawParticles = (now) => {
+        if (window.__heroPaused || window.scrollY > (window.innerHeight * 1.35)) {
+          pRunning = false;
+          return;
+        }
+        pRunning = true;
         requestAnimationFrame(drawParticles);
-        if (!heroVisible) return;
         const dt = Math.min(0.05, Math.max(0.001, (now - lastPTime) / 1000));
         lastPTime = now;
         const tSec = now * 0.001;
 
         ctx.clearRect(0, 0, w, h);
 
-        const colorLerp = Math.min(1, dt * 4.5);
+        const colorLerp = Math.min(1, dt * 5.2);
         for (let i = 0; i < pList.length; i++) {
           const p = pList[i];
           p.cr += (p.tr - p.cr) * colorLerp;
           p.cg += (p.tg - p.cg) * colorLerp;
           p.cb += (p.tb - p.cb) * colorLerp;
 
-          p.x += (p.vx + Math.sin(tSec * 0.8 + p.floatOffset) * 0.22);
           p.y += p.vy;
+          p.x += Math.sin(tSec * p.swaySp + p.swayPh) * p.swayAmp;
 
-          const pxOffset = (typeof mx !== 'undefined' ? mx : 0) * 14 * (p.r / 2.5);
-          const pyOffset = (typeof my !== 'undefined' ? my : 0) * 10 * (p.r / 2.5);
+          const pxOffset = (typeof mx !== 'undefined' ? mx : 0) * 16 * (p.r / 2.0);
+          const pyOffset = (typeof my !== 'undefined' ? my : 0) * 12 * (p.r / 2.0);
 
           if (p.y < -12) { p.y = h + 12; p.x = Math.random() * w; }
           if (p.x < -15) p.x = w + 15;
           if (p.x > w + 15) p.x = -15;
 
-          const alpha = Math.max(0.08, Math.min(0.9, p.baseA + Math.sin(tSec * p.pulseSp * 60 + p.pulsePh) * 0.22));
+          const alpha = Math.max(0.18, Math.min(0.98, p.baseA * (0.68 + 0.32 * Math.sin(tSec * p.twinkleSp + p.twinklePh))));
           const rx = Math.round(p.cr), gx = Math.round(p.cg), bx = Math.round(p.cb);
 
           const drawX = p.x + pxOffset;
           const drawY = p.y + pyOffset;
 
-          if (p.r > 1.8) {
-            const grad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, p.r * 2.6);
-            grad.addColorStop(0, `rgba(${rx},${gx},${bx},${alpha})`);
-            grad.addColorStop(0.45, `rgba(${rx},${gx},${bx},${alpha * 0.35})`);
-            grad.addColorStop(1, `rgba(${rx},${gx},${bx},0)`);
-            ctx.fillStyle = grad;
-            ctx.beginPath();
-            ctx.arc(drawX, drawY, p.r * 2.6, 0, 6.283);
-            ctx.fill();
-          } else {
-            ctx.fillStyle = `rgba(${rx},${gx},${bx},${alpha})`;
-            ctx.beginPath();
-            ctx.arc(drawX, drawY, p.r, 0, 6.283);
-            ctx.fill();
-          }
+          // Glowing dust speck / star aura
+          const grad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, p.r * 2.4);
+          grad.addColorStop(0, `rgba(${rx},${gx},${bx},${alpha})`);
+          grad.addColorStop(0.38, `rgba(${rx},${gx},${bx},${alpha * 0.45})`);
+          grad.addColorStop(1, `rgba(${rx},${gx},${bx},0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(drawX, drawY, p.r * 2.4, 0, 6.28318);
+          ctx.fill();
+
+          // Brilliant core center
+          ctx.fillStyle = `rgba(255,255,255,${alpha * 0.88})`;
+          ctx.beginPath();
+          ctx.arc(drawX, drawY, Math.max(0.65, p.r * 0.48), 0, 6.28318);
+          ctx.fill();
         }
       };
-      requestAnimationFrame(drawParticles);
+      const startParticleLoop = () => {
+        if (pRunning || window.__heroPaused || window.scrollY > (window.innerHeight * 1.35)) return;
+        pRunning = true;
+        lastPTime = performance.now();
+        requestAnimationFrame(drawParticles);
+      };
+      window.__resumeHeroParticles = startParticleLoop;
+      startParticleLoop();
     };
     initHeroParticles();
 
-    // Theme Switcher Buttons
-    const themeBtns = document.querySelectorAll('.hero-theme-switcher .theme-btn');
+    // Single Compact Theme Switcher Control Logic
+    const themeControl = document.getElementById('heroThemeControl');
+    const themeTrigger = document.getElementById('themeTrigger');
+    const themeTriggerDot = document.getElementById('themeTriggerDot');
+    const themeTriggerLabel = document.getElementById('themeTriggerLabel');
+    const themeOpts = document.querySelectorAll('.hero-theme-control .theme-opt');
+    const THEME_NAMES = ['Classic Holographic', 'Cyber Aurora', 'Solar Flare', 'Crimson Pulse'];
+    const THEME_DOT_CLASSES = ['dot-original', 'dot-cyan', 'dot-amber', 'dot-crimson'];
+
     const setHeroTheme = (idx) => {
-      curHeroTheme = (idx + 3) % 3;
-      themeBtns.forEach((btn, i) => {
+      curHeroTheme = (idx + 4) % 4;
+      if (themeTriggerDot) {
+        themeTriggerDot.className = 'theme-trigger-dot ' + THEME_DOT_CLASSES[curHeroTheme];
+      }
+      if (themeTriggerLabel) {
+        themeTriggerLabel.textContent = THEME_NAMES[curHeroTheme];
+      }
+      if (themeTrigger) {
+        themeTrigger.setAttribute('title', 'Theme: ' + THEME_NAMES[curHeroTheme]);
+        themeTrigger.setAttribute('aria-label', 'Theme: ' + THEME_NAMES[curHeroTheme] + ' (Active). Click or hover to switch theme.');
+      }
+      themeOpts.forEach((opt, i) => {
         const isAct = i === curHeroTheme;
-        btn.classList.toggle('active', isAct);
-        btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        opt.classList.toggle('active', isAct);
+        opt.setAttribute('aria-checked', isAct ? 'true' : 'false');
       });
       if (typeof window.__setHeroParticleTheme === 'function') {
         window.__setHeroParticleTheme(curHeroTheme);
       }
     };
-    themeBtns.forEach((btn, i) => {
-      btn.addEventListener('click', (e) => {
+
+    const openThemeDropdown = () => {
+      if (themeControl) {
+        themeControl.classList.add('is-open');
+        if (themeTrigger) themeTrigger.setAttribute('aria-expanded', 'true');
+      }
+    };
+
+    const closeThemeDropdown = () => {
+      if (themeControl) {
+        themeControl.classList.remove('is-open');
+        if (themeTrigger) themeTrigger.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    const toggleThemeDropdown = (e) => {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (themeControl && themeControl.classList.contains('is-open')) {
+        closeThemeDropdown();
+      } else {
+        openThemeDropdown();
+      }
+    };
+
+    if (themeTrigger) {
+      themeTrigger.addEventListener('click', toggleThemeDropdown);
+    }
+
+    let themeLeaveTimer = null;
+    if (themeControl) {
+      themeControl.addEventListener('mouseenter', () => {
+        if (themeLeaveTimer) clearTimeout(themeLeaveTimer);
+        openThemeDropdown();
+      });
+      themeControl.addEventListener('mouseleave', () => {
+        themeLeaveTimer = setTimeout(closeThemeDropdown, 220);
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (themeControl && !themeControl.contains(e.target)) {
+        closeThemeDropdown();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && themeControl && themeControl.classList.contains('is-open')) {
+        closeThemeDropdown();
+        if (themeTrigger) themeTrigger.focus();
+      }
+    });
+
+    themeOpts.forEach((opt, i) => {
+      opt.addEventListener('click', (e) => {
         e.stopPropagation();
         setHeroTheme(i);
+        closeThemeDropdown();
       });
     });
 
@@ -5700,7 +5950,7 @@
       const S = new THREE.Scene(), C = new THREE.PerspectiveCamera(50, 1, .1, 100); C.position.z = 9;
       const T = { value: 0 };
       const uB1 = { value: new THREE.Vector3(0.07, 0.03, 0.28) };
-      const uB2 = { value: new THREE.Vector3(0.33, 0.1, 0.78) };
+      const uB2 = { value: new THREE.Vector3(0.33, 0.10, 0.78) };
       const uPShift = { value: new THREE.Vector3(0.0, 0.33, 0.67) };
       const mk = o => new THREE.ShaderMaterial({
         uniforms: { t: T, o: { value: o }, b1: uB1, b2: uB2, pShift: uPShift },
@@ -5708,47 +5958,182 @@
         fragmentShader: 'uniform float t;uniform float o;uniform vec3 b1;uniform vec3 b2;uniform vec3 pShift;varying vec3 vN;varying vec3 vV;varying vec3 vP;vec3 pal(float x){return .5+.5*cos(6.2831*(x+pShift));}void main(){float f=pow(1.-max(dot(normalize(vN),normalize(vV)),0.),2.);vec3 base=mix(b1,b2,.5+.5*sin(vP.x*2.+vP.y*3.+t));vec3 c=base+pal(f*1.1+t*.12+vP.z*.2+o)*f*1.5;gl_FragColor=vec4(c,1.);}'
       });
       const G = new THREE.Group(); S.add(G);
-      const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.6, .5, 180, 28, 2, 3), mk(0));
-      const knotWireMat = new THREE.MeshBasicMaterial({ color: 0x41e8ff, wireframe: true, transparent: true, opacity: .24 });
-      knot.add(new THREE.Mesh(new THREE.TorusKnotGeometry(1.64, .54, 90, 12, 2, 3), knotWireMat));
+
+      // 3D Geometry: Torus Knot + Wireframe Mesh + Triangular Grid Line Overlay ("Jali")
+      const knotGeo = new THREE.TorusKnotGeometry(1.6, .5, 180, 28, 2, 3);
+      const knot = new THREE.Mesh(knotGeo, mk(0));
+
+      const knotWireMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(1.64, .54, 90, 12, 2, 3), new THREE.MeshBasicMaterial({
+        color: 0x41e8ff,
+        wireframe: true,
+        transparent: true,
+        opacity: .35,
+        blending: THREE.AdditiveBlending
+      }));
+      knot.add(knotWireMesh);
+
+      const wireLineGeo = new THREE.WireframeGeometry(new THREE.TorusKnotGeometry(1.64, .54, 90, 12, 2, 3));
+      const knotWireLines = new THREE.LineSegments(wireLineGeo, new THREE.LineBasicMaterial({
+        color: 0x41e8ff,
+        transparent: true,
+        opacity: .75,
+        blending: THREE.AdditiveBlending
+      }));
+      knot.add(knotWireLines);
+
       G.add(knot);
-      const cols = [0x41e8ff, 0x10ffa0, 0xff4f8b];
-      const rings = cols.map((c, i) => { const r = new THREE.Mesh(new THREE.TorusGeometry(2.8 + i * .75, .02, 8, 120), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: .7 })); r.rotation.set(i * 1.1, i * .7, 0); G.add(r); return r });
+
+      const cols = [0xff4f8b, 0x41e8ff, 0xffc857];
+      const rings = cols.map((c, i) => {
+        const r = new THREE.Mesh(new THREE.TorusGeometry(2.8 + i * .75, .02, 8, 120), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: .75 }));
+        r.rotation.set(i * 1.1, i * .7, 0);
+        G.add(r);
+        return r;
+      });
+
       const THEMES_3D = [
         {
+          // Theme 0: TRUE Original Website Theme (Cyan, Pink, Gold, Lavender)
           wire: new THREE.Color(0x41e8ff),
-          rings: [new THREE.Color(0x41e8ff), new THREE.Color(0x10ffa0), new THREE.Color(0xff4f8b)],
+          wire2: new THREE.Color(0x41e8ff),
+          rings: [new THREE.Color(0xff4f8b), new THREE.Color(0x41e8ff), new THREE.Color(0xffc857)],
           b1: new THREE.Vector3(0.07, 0.03, 0.28),
-          b2: new THREE.Vector3(0.33, 0.1, 0.78),
-          pShift: new THREE.Vector3(0.0, 0.33, 0.67),
-          starCol: new THREE.Color(0xbfb4ff)
+          b2: new THREE.Vector3(0.33, 0.10, 0.78),
+          pShift: new THREE.Vector3(0.0, 0.33, 0.67)
         },
         {
+          // Theme 1: Cyber Aurora (Clean White, Soft Silver, Ice White, Elegant Monochromatic Glow)
+          wire: new THREE.Color(0xffffff),
+          wire2: new THREE.Color(0xc0c7d1),
+          rings: [new THREE.Color(0xffffff), new THREE.Color(0xc0c7d1), new THREE.Color(0xe2e8f0)],
+          b1: new THREE.Vector3(0.12, 0.13, 0.16),
+          b2: new THREE.Vector3(0.72, 0.75, 0.82),
+          pShift: new THREE.Vector3(0.0, 0.05, 0.10)
+        },
+        {
+          // Theme 2: Solar Flare (Warm Gold, Amber, Flame Red)
           wire: new THREE.Color(0xffb703),
-          rings: [new THREE.Color(0xff0055), new THREE.Color(0xffb703), new THREE.Color(0xff6b35)],
-          b1: new THREE.Vector3(0.24, 0.04, 0.08),
-          b2: new THREE.Vector3(0.62, 0.25, 0.03),
-          pShift: new THREE.Vector3(0.12, 0.05, 0.55),
-          starCol: new THREE.Color(0xffd166)
+          wire2: new THREE.Color(0xff7b00),
+          rings: [new THREE.Color(0xff0055), new THREE.Color(0xffb703), new THREE.Color(0xff7b00)],
+          b1: new THREE.Vector3(0.25, 0.04, 0.08),
+          b2: new THREE.Vector3(0.65, 0.22, 0.02),
+          pShift: new THREE.Vector3(0.12, 0.05, 0.55)
         },
         {
-          wire: new THREE.Color(0xa855f7),
-          rings: [new THREE.Color(0xa855f7), new THREE.Color(0x3b82f6), new THREE.Color(0x06b6d4)],
-          b1: new THREE.Vector3(0.14, 0.02, 0.32),
-          b2: new THREE.Vector3(0.22, 0.14, 0.72),
-          pShift: new THREE.Vector3(0.72, 0.22, 0.48),
-          starCol: new THREE.Color(0xc4b5fd)
+          // Theme 3: Crimson Pulse (Crimson Red, Hot Pink, Ruby Red, Subtle White Glow)
+          wire: new THREE.Color(0xff0055),
+          wire2: new THREE.Color(0xff2d87),
+          rings: [new THREE.Color(0xff0055), new THREE.Color(0xff2d87), new THREE.Color(0xffe6ee)],
+          b1: new THREE.Vector3(0.32, 0.01, 0.08),
+          b2: new THREE.Vector3(0.75, 0.05, 0.25),
+          pShift: new THREE.Vector3(0.98, 0.05, 0.28)
         }
       ];
+
       const geos = [new THREE.OctahedronGeometry(.42), new THREE.BoxGeometry(.55, .55, .55), new THREE.IcosahedronGeometry(.4), new THREE.TetrahedronGeometry(.55)];
       const mats = [0, .25, .5, .75].map(mk);
       const fl = []; for (let i = 0; i < (wide() ? 18 : 10); i++) {
         const m = new THREE.Mesh(geos[i % 4], mats[i % 4]);
         m.position.set((Math.random() - .5) * 22, -Math.random() * 24 + 4, (Math.random() - .5) * 12 - 2); m.userData = { s: Math.random() * .8 + .3, o: Math.random() * 6 }; S.add(m); fl.push(m)
       }
-      const N = wide() ? 650 : 380, p = new Float32Array(N * 3); for (let i = 0; i < N; i++) { p[i * 3] = (Math.random() - .5) * 30; p[i * 3 + 1] = Math.random() * -34 + 8; p[i * 3 + 2] = (Math.random() - .5) * 20 - 2 }
-      const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(p, 3));
-      const pts = new THREE.Points(pg, new THREE.PointsMaterial({ color: 0xbfb4ff, size: .06, transparent: true, opacity: .9, blending: THREE.AdditiveBlending, depthWrite: false })); S.add(pts);
+
+      // Generate soft circular glowing speck texture for 3D particles
+      const makeParticleTexture = () => {
+        const k = document.createElement('canvas'); k.width = k.height = 32;
+        const g = k.getContext('2d'), rad = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+        rad.addColorStop(0, 'rgba(255,255,255,1)');
+        rad.addColorStop(0.35, 'rgba(255,255,255,0.85)');
+        rad.addColorStop(0.7, 'rgba(255,255,255,0.25)');
+        rad.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = rad; g.fillRect(0, 0, 32, 32);
+        return new THREE.CanvasTexture(k);
+      };
+
+      // 3D Tiny Floating Background Particles (replaces static star points)
+      const P_COUNT_3D = wide() ? 360 : 220;
+      const p3Geo = new THREE.BufferGeometry();
+      const p3Pos = new Float32Array(P_COUNT_3D * 3);
+      const p3Col = new Float32Array(P_COUNT_3D * 3);
+      const p3Data = [];
+
+      const PARTICLE_PALETTES_3D = [
+        // Theme 0: TRUE Original Website Theme (Cyan, Pink, Gold, Lavender, Turquoise, Neon Green, Mint, Mute Indigo, White)
+        [
+          new THREE.Color(0x41e8ff),
+          new THREE.Color(0xff4f8b),
+          new THREE.Color(0xffc857),
+          new THREE.Color(0xbfb4ff),
+          new THREE.Color(0x00f5d4),
+          new THREE.Color(0x10ffa0),
+          new THREE.Color(0x34d399),
+          new THREE.Color(0xa9a3d8),
+          new THREE.Color(0xffffff)
+        ],
+        // Theme 1: Cyber Aurora (Clean White, Ice White, Soft Silver, Platinum, Cool Slate)
+        [
+          new THREE.Color(0xffffff), // Pure White
+          new THREE.Color(0xf0f4fa), // Ice White
+          new THREE.Color(0xc0c7d1), // Soft Silver
+          new THREE.Color(0xe2e8f0), // Platinum
+          new THREE.Color(0xa8b2c0), // Cool Slate
+          new THREE.Color(0xffffff)  // Pure White Core
+        ],
+        // Theme 2: Solar Flare (Gold, Amber, Tangerine, Ruby Red, Sunset Coral)
+        [
+          new THREE.Color(0xffc857),
+          new THREE.Color(0xffb703),
+          new THREE.Color(0xff7b00),
+          new THREE.Color(0xff0055),
+          new THREE.Color(0xff6b6b),
+          new THREE.Color(0xfde047)
+        ],
+        // Theme 3: Crimson Pulse (Crimson Red, Hot Pink, Ruby Red, Carmine, Soft Rose, Subtle White Glow)
+        [
+          new THREE.Color(0xff0055),
+          new THREE.Color(0xff2d87),
+          new THREE.Color(0xd90429),
+          new THREE.Color(0xff1744),
+          new THREE.Color(0xff6584),
+          new THREE.Color(0xffffff)
+        ]
+      ];
+
+      for (let i = 0; i < P_COUNT_3D; i++) {
+        p3Pos[i * 3] = (Math.random() - 0.5) * 28;
+        p3Pos[i * 3 + 1] = Math.random() * 20 - 12;
+        p3Pos[i * 3 + 2] = (Math.random() - 0.5) * 12 - 2;
+
+        const palIdx = i % PARTICLE_PALETTES_3D[0].length;
+        const initCol = PARTICLE_PALETTES_3D[0][palIdx];
+        p3Col[i * 3] = initCol.r;
+        p3Col[i * 3 + 1] = initCol.g;
+        p3Col[i * 3 + 2] = initCol.b;
+
+        p3Data.push({
+          vy: Math.random() * 0.45 + 0.18,
+          swaySp: Math.random() * 0.9 + 0.4,
+          phase: Math.random() * 6.28,
+          palIdx: palIdx,
+          curR: initCol.r, curG: initCol.g, curB: initCol.b,
+          tarR: initCol.r, tarG: initCol.g, tarB: initCol.b
+        });
+      }
+
+      p3Geo.setAttribute('position', new THREE.BufferAttribute(p3Pos, 3));
+      p3Geo.setAttribute('color', new THREE.BufferAttribute(p3Col, 3));
+
+      const p3Mat = new THREE.PointsMaterial({
+        size: wide() ? 0.13 : 0.10,
+        map: makeParticleTexture(),
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.92,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const pts = new THREE.Points(p3Geo, p3Mat);
+      S.add(pts);
+
       function size() { const w = Math.round(innerWidth * rs), h = Math.round(innerHeight * rs); if (w !== sw || h !== sh) { sw = w; sh = h; R.setSize(w, h, false); } C.aspect = innerWidth / innerHeight; C.updateProjectionMatrix(); G.scale.setScalar(wide() ? 1 : .7) }
       size(); addEventListener('resize', size, { passive: true });
       const qScales = [1, 0.88, 0.75], pScales = [1, 0.76, 0.52];
@@ -5756,7 +6141,7 @@
         const nextT = Math.max(0, Math.min(2, l));
         const targetRs = baseRs() * qScales[nextT] * (lowPrev ? .6 : 1);
         if (instant || Math.abs(targetRs - rs) > 0.035) { rs = targetRs; size(); }
-        pg.setDrawRange(0, Math.round(N * pScales[nextT]));
+        p3Geo.setDrawRange(0, Math.round(P_COUNT_3D * pScales[nextT]));
       };
       const cores = navigator.hardwareConcurrency || 4, mem = navigator.deviceMemory || 4;
       if ((cores <= 4 && !wide()) || mem <= 2) { tier = 1; setQ(tier, true); }
@@ -5768,16 +6153,49 @@
         last = now;
         const th3 = THEMES_3D[typeof curHeroTheme !== 'undefined' ? curHeroTheme : 0];
         if (th3) {
-          const lSp = Math.min(1, dt3 * 4.2);
-          knotWireMat.color.lerp(th3.wire, lSp);
+          const lSp = Math.min(1, dt3 * 4.8);
+          knotWireMesh.material.color.lerp(th3.wire, lSp);
+          knotWireLines.material.color.lerp(th3.wire2, lSp);
           for (let i = 0; i < 3; i++) {
             if (rings[i] && th3.rings[i]) rings[i].material.color.lerp(th3.rings[i], lSp);
           }
           uB1.value.lerp(th3.b1, lSp);
           uB2.value.lerp(th3.b2, lSp);
           uPShift.value.lerp(th3.pShift, lSp);
-          pts.material.color.lerp(th3.starCol, lSp);
         }
+
+        // Float 3D background particles
+        const posAttr = p3Geo.attributes.position.array;
+        const colAttr = p3Geo.attributes.color.array;
+        const targetPalette = PARTICLE_PALETTES_3D[typeof curHeroTheme !== 'undefined' ? curHeroTheme : 0];
+        const cLerp = Math.min(1, dt3 * 4.8);
+
+        for (let i = 0; i < P_COUNT_3D; i++) {
+          const pd = p3Data[i];
+          const targetC = targetPalette[pd.palIdx % targetPalette.length];
+          pd.tarR = targetC.r;
+          pd.tarG = targetC.g;
+          pd.tarB = targetC.b;
+
+          pd.curR += (pd.tarR - pd.curR) * cLerp;
+          pd.curG += (pd.tarG - pd.curG) * cLerp;
+          pd.curB += (pd.tarB - pd.curB) * cLerp;
+          colAttr[i * 3] = pd.curR;
+          colAttr[i * 3 + 1] = pd.curG;
+          colAttr[i * 3 + 2] = pd.curB;
+
+          posAttr[i * 3 + 1] += pd.vy * dt3;
+          posAttr[i * 3] += Math.sin(t * pd.swaySp + pd.phase) * (dt3 * 0.3);
+
+          if (posAttr[i * 3 + 1] > 8.0) {
+            posAttr[i * 3 + 1] = -11.0;
+            posAttr[i * 3] = (Math.random() - 0.5) * 28;
+            posAttr[i * 3 + 2] = (Math.random() - 0.5) * 12 - 2;
+          }
+        }
+        p3Geo.attributes.position.needsUpdate = true;
+        p3Geo.attributes.color.needsUpdate = true;
+
         burst *= Math.exp(-dt3 * 2.4); if (burst < .003) burst = 0;
         deckK += (deckT - deckK) * (1 - Math.exp(-dt3 * 3.2));
         const sFactor = ani ? (1 - Math.exp(-dt3 * 5.5)) : 1;
@@ -5797,7 +6215,7 @@
         knot.rotation.y = t * .4 + mx * 1.2 + burst * 4.5 + deckK * .6;
         for (let i = 0; i < 3; i++) { rings[i].rotation.x = t * .18 * (i + 1) + burst * (i + 1) * 1.6; rings[i].rotation.y = t * .24 * (3 - i) }
         for (const m of fl) { const u = m.userData; m.rotation.x = t * u.s; m.rotation.y = t * u.s * .8; m.position.x += Math.sin(t * u.s + u.o) * .004 }
-        pts.rotation.y = t * .02;
+        pts.rotation.y = t * .015;
         R.render(S, C)
       };
     } catch (err) { console.warn('3D background unavailable', err) }
@@ -6569,6 +6987,12 @@
           stage.style.transform = fine ? 'rotateY(' + smx * 10 + 'deg) rotateX(' + (-smy * 8) + 'deg)' : 'rotateY(' + smx * 12 + 'deg) rotateX(' + (-smy * 10) + 'deg)';
         }
       }
+      window.__syncHeroParallax = () => {
+        smx = mx; smy = my; lsx = mx; lsy = my;
+        if (stage && scT < 1.15) {
+          stage.style.transform = fine ? 'rotateY(' + smx * 10 + 'deg) rotateX(' + (-smy * 8) + 'deg)' : 'rotateY(' + smx * 12 + 'deg) rotateX(' + (-smy * 10) + 'deg)';
+        }
+      };
       if (scrollDirty) {
         scT = curScrollY / winH;
         if (curScrollY < 100 && document.body.classList.contains('nav')) {
@@ -6789,7 +7213,9 @@
       function resumeHero() {
         window.__heroPaused = false;
         pauseTechStream(false);
+        if (window.__syncHeroParallax) window.__syncHeroParallax();
         if (window.__resumeTyping) { window.__resumeTyping(); window.__resumeTyping = null; }
+        if (window.__resumeHeroParticles) window.__resumeHeroParticles();
       }
 
       /* ── 3. hook into the existing deck open / switchTo / close ────── */
