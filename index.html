@@ -213,6 +213,128 @@
       color: #fff
     }
 
+    /* Hero Theme Switcher (Top Center) */
+    .hero-theme-switcher {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 6px;
+      background: rgba(18, 13, 56, 0.48);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      z-index: 6;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .hero-theme-switcher:hover {
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(26, 20, 76, 0.65);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .theme-btn {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: transparent;
+      padding: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .theme-btn:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.15);
+    }
+
+    .theme-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      display: block;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .dot-cyan {
+      background: conic-gradient(from 180deg, #41e8ff, #10ffa0, #ff4f8b, #41e8ff);
+      box-shadow: 0 0 8px rgba(65, 232, 255, 0.6);
+    }
+
+    .dot-amber {
+      background: conic-gradient(from 180deg, #ffc857, #ff9f1c, #ff0055, #ffc857);
+      box-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+    }
+
+    .dot-violet {
+      background: conic-gradient(from 180deg, #c084fc, #3b82f6, #06b6d4, #c084fc);
+      box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+    }
+
+    .theme-btn.active .theme-dot {
+      transform: scale(1.18);
+    }
+
+    .theme-btn.active::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      animation: themeActivePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes themeActivePop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-theme-switcher {
+        gap: 3px;
+        padding: 3px 4px;
+      }
+      .theme-btn {
+        width: 22px;
+        height: 22px;
+      }
+      .theme-dot {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    /* Hero Background Particles */
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
     section {
       min-height: 100vh;
       padding: 110px clamp(18px, 6vw, 90px) 70px;
@@ -4490,11 +4612,23 @@
         <span class="nav-dot"></span>
       </span>
     </a>
+    <div class="hero-theme-switcher" id="heroThemeSwitcher" role="group" aria-label="3D & Particles Theme Switcher">
+      <button class="theme-btn active" data-theme="0" type="button" aria-label="Theme 1: Cyber Aurora" title="Theme 1: Cyber Aurora" aria-pressed="true">
+        <span class="theme-dot dot-cyan"></span>
+      </button>
+      <button class="theme-btn" data-theme="1" type="button" aria-label="Theme 2: Solar Flare" title="Theme 2: Solar Flare" aria-pressed="false">
+        <span class="theme-dot dot-amber"></span>
+      </button>
+      <button class="theme-btn" data-theme="2" type="button" aria-label="Theme 3: Cosmic Nebula" title="Theme 3: Cosmic Nebula" aria-pressed="false">
+        <span class="theme-dot dot-violet"></span>
+      </button>
+    </div>
     <a class="hire" href="#contact">Hire me</a>
   </header>
   <main>
     <section id="hero">
       <div class="floor" aria-hidden="true"></div>
+      <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
       <div class="stage" id="stage">
         <div class="avrow">
           <div class="av"><svg viewBox="0 0 200 200" aria-hidden="true">
@@ -5389,7 +5523,175 @@
       location.href = 'mailto:hello@yunusweb.com?subject=' + encodeURIComponent('Project enquiry from ' + n) + '&body=' + encodeURIComponent(m + '\n\n' + n + ' (' + e + ')');
     };
     new IntersectionObserver(([e]) => document.querySelector('h1').classList.toggle('off', !e.isIntersecting)).observe(document.getElementById('hero'));
-    // 3D scene: shader-based (no lights), dynamic two-way adaptive quality
+    // 3D scene: shader-based (no lights), dynamic two-way adaptive quality + 3 Color Themes
+    let curHeroTheme = 0;
+    const PARTICLE_THEMES = [
+      // Theme 0: Cyan, Turquoise, Neon Green, Soft Pink/Purple (Reference inspired)
+      [
+        { r: 65, g: 232, b: 255 },
+        { r: 0, g: 240, b: 255 },
+        { r: 16, g: 255, b: 160 },
+        { r: 52, g: 211, b: 153 },
+        { r: 255, g: 79, b: 139 },
+        { r: 192, g: 132, b: 252 }
+      ],
+      // Theme 1: Gold, Amber, Tangerine, Sunset Coral, Neon Crimson
+      [
+        { r: 255, g: 200, b: 87 },
+        { r: 255, g: 183, b: 3 },
+        { r: 255, g: 159, b: 28 },
+        { r: 255, g: 0, b: 85 },
+        { r: 255, g: 107, b: 107 },
+        { r: 253, g: 224, b: 71 }
+      ],
+      // Theme 2: Electric Violet, Lavender, Royal Blue, Ice Cyan, Magenta Glow
+      [
+        { r: 168, g: 85, b: 247 },
+        { r: 192, g: 132, b: 252 },
+        { r: 59, g: 130, b: 246 },
+        { r: 6, g: 182, b: 212 },
+        { r: 129, g: 140, b: 248 },
+        { r: 236, g: 72, b: 153 }
+      ]
+    ];
+
+    // Initialize Hero Background Particles
+    const initHeroParticles = () => {
+      const cvs = document.getElementById('hero-particles');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      if (!ctx) return;
+      const heroEl = document.getElementById('hero');
+      let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let pList = [];
+      const P_COUNT = 52;
+
+      const resizeP = () => {
+        if (!heroEl) return;
+        const rect = heroEl.getBoundingClientRect();
+        w = rect.width || window.innerWidth;
+        h = rect.height || window.innerHeight;
+        cvs.width = Math.round(w * dpr);
+        cvs.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+      resizeP();
+      window.addEventListener('resize', resizeP, { passive: true });
+
+      const getThemeTargetCol = (themeIdx, colIdx) => {
+        const pal = PARTICLE_THEMES[themeIdx] || PARTICLE_THEMES[0];
+        return pal[colIdx % pal.length];
+      };
+
+      for (let i = 0; i < P_COUNT; i++) {
+        const colIdx = i % PARTICLE_THEMES[0].length;
+        const col = getThemeTargetCol(0, colIdx);
+        pList.push({
+          x: Math.random() * (w || window.innerWidth),
+          y: Math.random() * (h || window.innerHeight),
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: -Math.random() * 0.45 - 0.15,
+          r: Math.random() * 1.8 + 0.9,
+          baseA: Math.random() * 0.45 + 0.3,
+          pulseSp: Math.random() * 0.02 + 0.012,
+          pulsePh: Math.random() * 6.28,
+          colIdx: colIdx,
+          cr: col.r, cg: col.g, cb: col.b,
+          tr: col.r, tg: col.g, tb: col.b,
+          floatOffset: Math.random() * 100
+        });
+      }
+
+      window.__setHeroParticleTheme = (themeIdx) => {
+        pList.forEach(p => {
+          const target = getThemeTargetCol(themeIdx, p.colIdx);
+          p.tr = target.r;
+          p.tg = target.g;
+          p.tb = target.b;
+        });
+      };
+
+      let heroVisible = true;
+      if (window.IntersectionObserver && heroEl) {
+        new IntersectionObserver(([e]) => {
+          heroVisible = e.isIntersecting;
+        }, { threshold: 0.05 }).observe(heroEl);
+      }
+
+      let lastPTime = performance.now();
+      const drawParticles = (now) => {
+        requestAnimationFrame(drawParticles);
+        if (!heroVisible) return;
+        const dt = Math.min(0.05, Math.max(0.001, (now - lastPTime) / 1000));
+        lastPTime = now;
+        const tSec = now * 0.001;
+
+        ctx.clearRect(0, 0, w, h);
+
+        const colorLerp = Math.min(1, dt * 4.5);
+        for (let i = 0; i < pList.length; i++) {
+          const p = pList[i];
+          p.cr += (p.tr - p.cr) * colorLerp;
+          p.cg += (p.tg - p.cg) * colorLerp;
+          p.cb += (p.tb - p.cb) * colorLerp;
+
+          p.x += (p.vx + Math.sin(tSec * 0.8 + p.floatOffset) * 0.22);
+          p.y += p.vy;
+
+          const pxOffset = (typeof mx !== 'undefined' ? mx : 0) * 14 * (p.r / 2.5);
+          const pyOffset = (typeof my !== 'undefined' ? my : 0) * 10 * (p.r / 2.5);
+
+          if (p.y < -12) { p.y = h + 12; p.x = Math.random() * w; }
+          if (p.x < -15) p.x = w + 15;
+          if (p.x > w + 15) p.x = -15;
+
+          const alpha = Math.max(0.08, Math.min(0.9, p.baseA + Math.sin(tSec * p.pulseSp * 60 + p.pulsePh) * 0.22));
+          const rx = Math.round(p.cr), gx = Math.round(p.cg), bx = Math.round(p.cb);
+
+          const drawX = p.x + pxOffset;
+          const drawY = p.y + pyOffset;
+
+          if (p.r > 1.8) {
+            const grad = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, p.r * 2.6);
+            grad.addColorStop(0, `rgba(${rx},${gx},${bx},${alpha})`);
+            grad.addColorStop(0.45, `rgba(${rx},${gx},${bx},${alpha * 0.35})`);
+            grad.addColorStop(1, `rgba(${rx},${gx},${bx},0)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(drawX, drawY, p.r * 2.6, 0, 6.283);
+            ctx.fill();
+          } else {
+            ctx.fillStyle = `rgba(${rx},${gx},${bx},${alpha})`;
+            ctx.beginPath();
+            ctx.arc(drawX, drawY, p.r, 0, 6.283);
+            ctx.fill();
+          }
+        }
+      };
+      requestAnimationFrame(drawParticles);
+    };
+    initHeroParticles();
+
+    // Theme Switcher Buttons
+    const themeBtns = document.querySelectorAll('.hero-theme-switcher .theme-btn');
+    const setHeroTheme = (idx) => {
+      curHeroTheme = (idx + 3) % 3;
+      themeBtns.forEach((btn, i) => {
+        const isAct = i === curHeroTheme;
+        btn.classList.toggle('active', isAct);
+        btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+      });
+      if (typeof window.__setHeroParticleTheme === 'function') {
+        window.__setHeroParticleTheme(curHeroTheme);
+      }
+    };
+    themeBtns.forEach((btn, i) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setHeroTheme(i);
+      });
+    });
+
     let last = 0, slow = 16, setQ = null, tier = 0, burst = 0, deckK = 0, deckT = 0;
     try {
       const wide = () => innerWidth > 800, cv = document.getElementById('gl');
@@ -5397,17 +5699,47 @@
       const baseRs = () => wide() ? .85 : Math.min(devicePixelRatio, 2) * .75; let rs = baseRs(), sw = 0, sh = 0, lowPrev = false; R.setPixelRatio(1);
       const S = new THREE.Scene(), C = new THREE.PerspectiveCamera(50, 1, .1, 100); C.position.z = 9;
       const T = { value: 0 };
+      const uB1 = { value: new THREE.Vector3(0.07, 0.03, 0.28) };
+      const uB2 = { value: new THREE.Vector3(0.33, 0.1, 0.78) };
+      const uPShift = { value: new THREE.Vector3(0.0, 0.33, 0.67) };
       const mk = o => new THREE.ShaderMaterial({
-        uniforms: { t: T, o: { value: o } },
+        uniforms: { t: T, o: { value: o }, b1: uB1, b2: uB2, pShift: uPShift },
         vertexShader: 'varying vec3 vN;varying vec3 vV;varying vec3 vP;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);vP=position;gl_Position=projectionMatrix*mv;}',
-        fragmentShader: 'uniform float t;uniform float o;varying vec3 vN;varying vec3 vV;varying vec3 vP;vec3 pal(float x){return .5+.5*cos(6.2831*(x+vec3(0.,.33,.67)));}void main(){float f=pow(1.-max(dot(normalize(vN),normalize(vV)),0.),2.);vec3 base=mix(vec3(.07,.03,.28),vec3(.33,.1,.78),.5+.5*sin(vP.x*2.+vP.y*3.+t));vec3 c=base+pal(f*1.1+t*.12+vP.z*.2+o)*f*1.5;gl_FragColor=vec4(c,1.);}'
+        fragmentShader: 'uniform float t;uniform float o;uniform vec3 b1;uniform vec3 b2;uniform vec3 pShift;varying vec3 vN;varying vec3 vV;varying vec3 vP;vec3 pal(float x){return .5+.5*cos(6.2831*(x+pShift));}void main(){float f=pow(1.-max(dot(normalize(vN),normalize(vV)),0.),2.);vec3 base=mix(b1,b2,.5+.5*sin(vP.x*2.+vP.y*3.+t));vec3 c=base+pal(f*1.1+t*.12+vP.z*.2+o)*f*1.5;gl_FragColor=vec4(c,1.);}'
       });
       const G = new THREE.Group(); S.add(G);
       const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(1.6, .5, 180, 28, 2, 3), mk(0));
-      knot.add(new THREE.Mesh(new THREE.TorusKnotGeometry(1.64, .54, 90, 12, 2, 3), new THREE.MeshBasicMaterial({ color: 0x41e8ff, wireframe: true, transparent: true, opacity: .22 })));
+      const knotWireMat = new THREE.MeshBasicMaterial({ color: 0x41e8ff, wireframe: true, transparent: true, opacity: .24 });
+      knot.add(new THREE.Mesh(new THREE.TorusKnotGeometry(1.64, .54, 90, 12, 2, 3), knotWireMat));
       G.add(knot);
-      const cols = [0xff4f8b, 0x41e8ff, 0xffc857];
+      const cols = [0x41e8ff, 0x10ffa0, 0xff4f8b];
       const rings = cols.map((c, i) => { const r = new THREE.Mesh(new THREE.TorusGeometry(2.8 + i * .75, .02, 8, 120), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: .7 })); r.rotation.set(i * 1.1, i * .7, 0); G.add(r); return r });
+      const THEMES_3D = [
+        {
+          wire: new THREE.Color(0x41e8ff),
+          rings: [new THREE.Color(0x41e8ff), new THREE.Color(0x10ffa0), new THREE.Color(0xff4f8b)],
+          b1: new THREE.Vector3(0.07, 0.03, 0.28),
+          b2: new THREE.Vector3(0.33, 0.1, 0.78),
+          pShift: new THREE.Vector3(0.0, 0.33, 0.67),
+          starCol: new THREE.Color(0xbfb4ff)
+        },
+        {
+          wire: new THREE.Color(0xffb703),
+          rings: [new THREE.Color(0xff0055), new THREE.Color(0xffb703), new THREE.Color(0xff6b35)],
+          b1: new THREE.Vector3(0.24, 0.04, 0.08),
+          b2: new THREE.Vector3(0.62, 0.25, 0.03),
+          pShift: new THREE.Vector3(0.12, 0.05, 0.55),
+          starCol: new THREE.Color(0xffd166)
+        },
+        {
+          wire: new THREE.Color(0xa855f7),
+          rings: [new THREE.Color(0xa855f7), new THREE.Color(0x3b82f6), new THREE.Color(0x06b6d4)],
+          b1: new THREE.Vector3(0.14, 0.02, 0.32),
+          b2: new THREE.Vector3(0.22, 0.14, 0.72),
+          pShift: new THREE.Vector3(0.72, 0.22, 0.48),
+          starCol: new THREE.Color(0xc4b5fd)
+        }
+      ];
       const geos = [new THREE.OctahedronGeometry(.42), new THREE.BoxGeometry(.55, .55, .55), new THREE.IcosahedronGeometry(.4), new THREE.TetrahedronGeometry(.55)];
       const mats = [0, .25, .5, .75].map(mk);
       const fl = []; for (let i = 0; i < (wide() ? 18 : 10); i++) {
@@ -5434,6 +5766,18 @@
         const lowNow = !!window.__glLow; if (lowNow !== lowPrev) { lowPrev = lowNow; rs = baseRs() * qScales[tier] * (lowNow ? .6 : 1); size(); }
         const dt3 = dtFrame !== undefined ? dtFrame : (last ? Math.min(.05, Math.max(.001, (now - last) / 1000)) : .016);
         last = now;
+        const th3 = THEMES_3D[typeof curHeroTheme !== 'undefined' ? curHeroTheme : 0];
+        if (th3) {
+          const lSp = Math.min(1, dt3 * 4.2);
+          knotWireMat.color.lerp(th3.wire, lSp);
+          for (let i = 0; i < 3; i++) {
+            if (rings[i] && th3.rings[i]) rings[i].material.color.lerp(th3.rings[i], lSp);
+          }
+          uB1.value.lerp(th3.b1, lSp);
+          uB2.value.lerp(th3.b2, lSp);
+          uPShift.value.lerp(th3.pShift, lSp);
+          pts.material.color.lerp(th3.starCol, lSp);
+        }
         burst *= Math.exp(-dt3 * 2.4); if (burst < .003) burst = 0;
         deckK += (deckT - deckK) * (1 - Math.exp(-dt3 * 3.2));
         const sFactor = ani ? (1 - Math.exp(-dt3 * 5.5)) : 1;
